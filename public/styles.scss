@@ -1,3 +1,5 @@
+@import 'variables';
+
 *,
 *::before,
 *::after {
@@ -7,20 +9,6 @@
 * {
     margin: 0;
 }
-
-$text: #030b1c;
-$secondary-text: #ffffff;
-$background: #c2d9ff;
-$primary: #0f3a80;
-$secondary: #be97ff;
-$accent: #ff8800;
-
-$dark-text: #e3ebfc;
-$dark-secondary-text: #000000;
-$dark-background: #00173d;
-$dark-primary: #7faaf0;
-$dark-secondary: #890059;
-$dark-accent: #e6282f;
 
 html {
     font-size: calc(1rem + 0.5vw);
