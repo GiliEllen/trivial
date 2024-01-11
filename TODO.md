@@ -4,14 +4,18 @@
 ## Pages
 1. ### Home 
     - Start new game
+        * By difficulty
+        * By topics
+        * Timer
     - Top players 
     - Topics navigation
     - User avatar (top corner)
 
 2. ### Game
-    - By difficulty
-    - By topics
+    - Trivia container
+    - Score
     - Timer
+    - Quit
 
 3. ### Profile (self/others)
     - User details and info
