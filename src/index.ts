@@ -4,6 +4,7 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import { json } from "body-parser";
 import mongoose from "mongoose";
+import { User } from "./user.model";
 
 const app = express();
 const sessionCookieName = "userId";
