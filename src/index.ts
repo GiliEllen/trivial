@@ -1,20 +1,23 @@
 import "dotenv/config";
 import { createServer } from "http";
-import express from "express";
+import express, { ErrorRequestHandler, RequestHandler } from "express";
 import cookieParser from "cookie-parser";
 import { json } from "body-parser";
 import mongoose from "mongoose";
 import { User } from "./user.model";
 
-const app = express();
 const sessionCookieName = "userId";
+const app = express();
 
-app.use(cookieParser());
+app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(json());
 
-app.get("/api/hello", (req, res) => {
-    res.send("world");
-});
+const logRequests: RequestHandler = (req, res, next) => {
+    console.log(req.method, req.url, req.body);
+    next();
+};
+
+app.use(logRequests);
 
 app.post("/api/auth/register", async (req, res, next) => {
     try {
@@ -74,7 +77,7 @@ async function init() {
     }
 
     await mongoose.connect(process.env.MONGO_CONNECTION_STRING, {
-        dbName: "app-db-name"
+        dbName: "trivial"
     });
 
     server.listen(port, () => console.log(`Listening on http://localhost:${port}`));
