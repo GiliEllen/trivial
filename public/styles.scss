@@ -1,4 +1,4 @@
-@import 'variables';
+@import 'colors';
 
 *,
 *::before,
@@ -13,12 +13,12 @@
 html {
     font-size: calc(1rem + 0.5vw);
     color-scheme: light dark;
-    color: $text;
+    color: map-get($selected-theme, text);
 }
 
 body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    background-color: $background;
+    background-color: map-get($selected-theme, background);
 }
 
 
@@ -38,12 +38,12 @@ body {
 
 #question-container {
     padding: 1rem;
-    background-color: $primary;
+    background-color: map-get($selected-theme, primary);
     border: 2px solid black;
     border-radius: 18px 18px 0 0;
     font-weight: 600;
     font-size: 1.4em;
-    color: $secondary-text;
+    color: map-get($selected-theme, secondary-text);
 }
 
 #answers-container {
@@ -51,7 +51,7 @@ body {
     grid-template-columns: 1fr 1fr;
     list-style: upper-alpha;
     list-style-position: inside;
-    background-color: $secondary;
+    background-color: map-get($selected-theme, secondary);
     padding: 0;
 
     &>button {
@@ -65,13 +65,14 @@ body {
         }
 
         &:active {
-            background-color: $accent;
+            background-color: map-get($selected-theme, accent);
         }
     }
 }
 
 .answer {
     padding: calc(1rem + 1vw);
-    color: $secondary-text;
+    color: map-get($selected-theme, secondary-text);
     font-weight: 600;
 }
+

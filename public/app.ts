@@ -1,23 +1,23 @@
 async function app() {
-    const user = await getJSON("/api/currentUser");
+  const user = await getJSON("/api/currentUser");
 
-    handleUser(user);
+  handleUser(user);
 }
 
 app();
 
 function handleUser(user: any) {
-    if (!user) {
-        return;
-    }
+  if (!user) {
+    document.getElementById("username")!.textContent = "guest";
+    return;
+  }
 
-    document.body.classList.add("logged-in");
-    document.getElementById("username")!.textContent = user.username;
+  document.body.classList.add("logged-in");
+  document.getElementById("username")!.textContent = user.username;
 }
 
-
 async function getJSON(path: string) {
-    const res = await fetch(path);
+  const res = await fetch(path);
 
-    return await res.json();
+  return await res.json();
 }
