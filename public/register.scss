@@ -17,11 +17,6 @@ textarea {
     line-height: inherit;
 }
 
-.columned-flex {
-    display: flex;
-    flex-direction: column;
-}
-
 label {
     display: flex;
     align-items: baseline;
@@ -29,11 +24,14 @@ label {
 
 #toggle-password {
     cursor: pointer;
-    color: deeppink;
+    color: inherit;
     font-size: 0.8rem;
     margin-left: auto;
+    background-color: transparent;
+    border-color: transparent;
+    transform: translateY(105%);
 }
 
-.flow {
-    margin-block-start: 1.2em;
+.Btn {
+    background-color: ;
 }

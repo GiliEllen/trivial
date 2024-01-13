@@ -11,7 +11,7 @@
 
 <body>
     <header>
-        <h1>Register</h1>
+        <h1>Login</h1>
     </header>
 
     <main>
@@ -21,20 +21,15 @@
                 <input id="email" name="email" type="email" required autofocus />
             </div>
             <div class="columned-flex">
-                <label for="username">Username</label>
-                <input id="username" name="username" type="text" required />
-            </div>
-            <div class="columned-flex">
-                <label for="password">Password <button type="button" id="toggle-password"
-                        tabindex="0">Show</button></label>
+                <label for="password">Password <button type="button" id="toggle-password" tabindex="0">Show</button></label>
                 <input id="password" name="password" type="password" required />
             </div>
-            <button>Register</button>
+            <button class="btn flow">Login</button>
         </form>
-        <p class="flow">Alredy have a member?<a href="login.html"> Sign in</a></p>
+        <p class="flow">New to Trivial?<a href="register.html"> Register</a></p>
     </main>
 
-    <script type="module" src="register.js"></script>
+    <script type="module" src="login.js"></script>
 </body>
 
 </html>
