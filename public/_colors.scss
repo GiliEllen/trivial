@@ -15,14 +15,17 @@
 //     $accent: #d19b05;
 // }
 
-$themes: (light: (text: #012328,
+$themes: (
+  light: (
+    text: #012328,
     secondary-text: #000000,
     background: #dcfafe,
     primary: #037187,
     secondary: #fb657e,
     accent: #d19b05,
   ),
-  dark: (text: #d7f9fe,
+  dark: (
+    text: #d7f9fe,
     secondary-text: #d7f9fe,
     background: #011f23,
     primary: #78e6fc,
@@ -30,6 +33,7 @@ $themes: (light: (text: #012328,
     accent: #fac32e,
   ),
 );
+
 
 $selected-theme: map-get($themes, light);
 
