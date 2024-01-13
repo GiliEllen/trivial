@@ -19,6 +19,10 @@ const logRequests: RequestHandler = (req, res, next) => {
 
 app.use(logRequests);
 
+const now = new Date();
+const expires = new Date();
+expires.setDate(now.getDate() + 1);
+
 app.post("/api/auth/register", async (req, res, next) => {
     try {
         const { email, username, password } = req.body;
@@ -35,10 +39,6 @@ app.post("/api/auth/register", async (req, res, next) => {
             password
         });
 
-        const now = new Date();
-        const expires = new Date();
-        expires.setDate(now.getDate() + 1);
-
         res.cookie(sessionCookieName, user._id, {
             httpOnly: true,
             secure: true,
@@ -51,6 +51,34 @@ app.post("/api/auth/register", async (req, res, next) => {
     } catch (error) {
         console.error(error);
         next(error);
+    }
+});
+
+app.post("/api/auth/login", async (req, res, next) => {
+    try {
+        const { username, password } = req.body;
+
+        const user = await User.findOne({
+            username,
+            password
+        });
+
+        if (!user) {
+            res.status(401);
+            res.send("username and password doesn't match");
+            return;
+        }
+
+        res.cookie("userId", user._id, {
+            httpOnly: true,
+            secure: true,
+            signed: true,
+            expires 
+        });
+        res.status(200);
+        res.send();
+    } catch (err) {
+        next(err);
     }
 });
 

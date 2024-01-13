@@ -32,6 +32,18 @@ label {
     transform: translateY(105%);
 }
 
-.Btn {
-    background-color: ;
+.btn {
+    background-color: map-get($selected-theme, primary);
+    color: map-get($selected-theme, secondary-text);
+
+    @media (prefers-color-scheme: dark) {
+        $selected-theme: map-get($themes, dark);
+        background-color: map-get($selected-theme, primary);
+        color: map-get($selected-theme, secondary-text);
+    }
+}
+
+.columned-flex {
+    display: flex;
+    flex-direction: column;
 }
