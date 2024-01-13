@@ -2,17 +2,16 @@ async function app() {
   const user = await getJSON("/api/currentUser");
 
   handleUser(user);
-  console.log(user)
 }
 
 app();
 
-document.getElementById("logoutBtn")?.addEventListener("click", logOut)
+document.getElementById("logoutBtn")?.addEventListener("click", (e) => {
+  e.preventDefault();
 
-function logOut() {
-  document.cookie = "userId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-  window.location.reload()
-}
+  document.cookie = "userId=; Max-Age=0; path=/; Secure; HttpOnly;";
+  window.location.reload();
+});
 
 function handleUser(user: any) {
   if (!user) {
