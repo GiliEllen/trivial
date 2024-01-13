@@ -4,9 +4,10 @@ import express, { ErrorRequestHandler, RequestHandler } from "express";
 import cookieParser from "cookie-parser";
 import { json } from "body-parser";
 import mongoose from "mongoose";
-import { User } from "./user.model";
+import { User } from "./users.model";
+import { router as authRouter } from "./auth.router" 
 
-const sessionCookieName = "userId";
+export const sessionCookieName = "userId";
 const app = express();
 
 app.use(cookieParser(process.env.COOKIE_SECRET));
@@ -19,68 +20,7 @@ const logRequests: RequestHandler = (req, res, next) => {
 
 app.use(logRequests);
 
-const now = new Date();
-const expires = new Date();
-expires.setDate(now.getDate() + 1);
-
-app.post("/api/auth/register", async (req, res, next) => {
-    try {
-        const { email, username, password } = req.body;
-
-        if (!email || !username || !password) {
-            res.status(400);
-            res.send("Must provide email, username and password");
-            return;
-        }
-
-        const user = await User.create({
-            email,
-            username,
-            password
-        });
-
-        res.cookie(sessionCookieName, user._id, {
-            httpOnly: true,
-            secure: true,
-            signed: true,
-            expires
-        });
-
-        res.status(201);
-        res.end();
-    } catch (error) {
-        console.error(error);
-        next(error);
-    }
-});
-
-app.post("/api/auth/login", async (req, res, next) => {
-    try {
-        const { username, password } = req.body;
-
-        const user = await User.findOne({
-            username,
-            password
-        });
-
-        if (!user) {
-            res.status(401);
-            res.send("username and password doesn't match");
-            return;
-        }
-
-        res.cookie("userId", user._id, {
-            httpOnly: true,
-            secure: true,
-            signed: true,
-            expires 
-        });
-        res.status(200);
-        res.send();
-    } catch (err) {
-        next(err);
-    }
-});
+app.use("/api/auth", authRouter);
 
 app.get("/api/currentUser", async (req, res, next) => {
     try {

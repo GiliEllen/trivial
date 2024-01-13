@@ -18,7 +18,7 @@ const schema = new Schema<User>({
     }
 });
 
-export function hashPassword(value: string) {
+function hashPassword(value: string) {
     const hash = createHash("sha256");
     hash.update(value);
 
