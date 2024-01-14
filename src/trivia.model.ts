@@ -5,22 +5,38 @@ type Difficulty = "Easy" | "Medium" | "Hard";
 type Category = "Any category" | "Sports" | "Animals";
 
 
-interface Trivia {
-    type: string,
-    difficulty: Difficulty,
-    category: Category,
-    question: string,
-    correctAnswer: string,
-    incorrectAnswers: string[]
+interface Question {
+    type: string;
+    difficulty: Difficulty;
+    category: Category;
+    question: string;
+    correctAnswer: string;
+    incorrectAnswers: string[];
 }
 
-const schema = new Schema<Trivia>({
+const questionSchema = new Schema<Question>({
     type: { type: String, required: true },
-    difficulty: { type: String, enum: ["Easy", "Medium", "Hard"], required: true },
-    category: { type: String, enum: ["Any category", "Sports", "Animals"], required: true },
+    difficulty: { type: String, enum: ["Easy", "Medium", "Hard"], required: true,  default: "Easy" },
+    category: { type: String, enum: ["Any category", "Sports", "Animals"], required: true,  default: "Any category" },
     question: { type: String, required: true },
     correctAnswer: { type: String, required: true },
     incorrectAnswers: { type: [String], default: [] },
   });
 
-export const Trivia = model<Trivia>("Trivia", schema, "trivias");
+export const Question = model<Question>("Question", questionSchema, "questions");
+
+interface Trivia {
+    difficulty: Difficulty;
+    category: Category;
+    questions: Question[];
+    shareId: string;
+}
+
+const triviaSchema = new Schema<Trivia>({
+    difficulty: { type: String, enum: ["Easy", "Medium", "Hard"], required: true,  default: "Easy" },
+    category: { type: String, enum: ["Any category", "Sports", "Animals"], required: true,  default: "Any category" },
+    questions: { type: [Question] },
+    shareId: { type: String }
+})
+
+export const Trivia = model<Trivia>("Trivia", triviaSchema, "trivias");
