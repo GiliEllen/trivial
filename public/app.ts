@@ -6,11 +6,27 @@ async function app() {
 
 app();
 
-document.getElementById("logoutBtn")?.addEventListener("click", (e) => {
+document.getElementById("logoutBtn")?.addEventListener("click", async (e) => {
   e.preventDefault();
 
-  document.cookie = "userId=; Max-Age=0; path=/; Secure; HttpOnly;";
-  window.location.reload();
+  try {
+    await fetch("/logout", {
+      method: "GET",
+      credentials: "same-origin",
+    });
+
+    console.log("Logout successful");
+
+    new Promise<void>((resolve) => {
+      window.location.href = "/logout";
+      resolve();
+    }).then(() => {
+      window.location.reload();
+    });
+
+  } catch (error) {
+    console.error("An error occurred during logout", error);
+  }
 });
 
 function handleUser(user: any) {
