@@ -15,8 +15,6 @@ document.getElementById("logoutBtn")?.addEventListener("click", async (e) => {
       credentials: "same-origin",
     });
 
-    console.log("Logout successful");
-
     new Promise<void>((resolve) => {
       window.location.href = "/logout";
       resolve();

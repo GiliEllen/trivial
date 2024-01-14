@@ -24,6 +24,10 @@ body {
     justify-content: center;
 }
 
+.--columned {
+    flex-direction: column;
+}
+
 .flow {
     margin-block-start: 1.2rem;
 }
@@ -98,7 +102,8 @@ body {
 }
 
 .register-form__register-link,
-.login-form__login-link {
+.login-form__login-link,
+.back-to-login {
     margin-inline-start: 1ch;
     text-decoration: none;
     color: map-get($selected-theme, accent);
