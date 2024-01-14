@@ -10,8 +10,8 @@ interface Question {
     difficulty: Difficulty;
     category: Category;
     question: string;
-    correctAnswer: string;
-    incorrectAnswers: string[];
+    correct_answer: string;
+    incorrect_answers: string[];
 }
 
 const questionSchema = new Schema<Question>({
@@ -19,8 +19,8 @@ const questionSchema = new Schema<Question>({
     difficulty: { type: String, enum: ["easy", "medium", "hard"], required: true,  default: "easy" },
     category: { type: String, enum: ["Any category", "Sports", "Animals"], required: true,  default: "Any category" },
     question: { type: String, required: true },
-    correctAnswer: { type: String, required: true },
-    incorrectAnswers: { type: [String], default: [] },
+    correct_answer: { type: String, required: true },
+    incorrect_answers: { type: [String], default: [] },
   });
 
 export const Question = model<Question>("Question", questionSchema, "questions");
