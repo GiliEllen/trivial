@@ -1,6 +1,6 @@
 import { Schema , model } from "mongoose";
 
-type Difficulty = "Easy" | "Medium" | "Hard";
+type Difficulty = "easy" | "medium" | "hard";
 
 type Category = "Any category" | "Sports" | "Animals";
 
@@ -16,7 +16,7 @@ interface Question {
 
 const questionSchema = new Schema<Question>({
     type: { type: String, required: true },
-    difficulty: { type: String, enum: ["Easy", "Medium", "Hard"], required: true,  default: "Easy" },
+    difficulty: { type: String, enum: ["easy", "medium", "hard"], required: true,  default: "easy" },
     category: { type: String, enum: ["Any category", "Sports", "Animals"], required: true,  default: "Any category" },
     question: { type: String, required: true },
     correctAnswer: { type: String, required: true },
@@ -33,7 +33,7 @@ interface Trivia {
 }
 
 const triviaSchema = new Schema<Trivia>({
-    difficulty: { type: String, enum: ["Easy", "Medium", "Hard"], required: true,  default: "Easy" },
+    difficulty: { type: String, enum: ["easy", "medium", "hard"], required: true,  default: "easy" },
     category: { type: String, enum: ["Any category", "Sports", "Animals"], required: true,  default: "Any category" },
     questions: { type: [Question] },
     shareId: { type: String }

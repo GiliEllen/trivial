@@ -10,30 +10,32 @@
 </head>
 
 <body>
+
     <body class="main-flow">
         <header>
             <h1>Game</h1>
-        <a class="__site-link centered-flex" href="index.html">Home</a>
-    </header>
+            <p class="flow centered-flex" id="username"></p>
+            <a class="__site-link centered-flex" href="index.html">Home</a>
+        </header>
 
-    <main class="flow centered-flex">
-        <article id="game-container">
-            <div id="question-container">
-                <p id="question">What is your favorite colour?</p>
-            </div>
-            <div id="answers-container">
+        <main class="flow centered-flex">
+            <article id="game-container">
+                <div id="question-container">
+                    <p id="question">What is your favorite colour?</p>
+                </div>
+                <div id="answers-container">
                     <button id="answer-a-btn">A. <span class="answer">Blue. No, yel...</span></button>
                     <button id="answer-b-btn">B. <span class="answer">Ummm</span></button>
                     <button id="answer-c-btn">C. <span class="answer">Blue</span></button>
                     <button id="answer-d-btn">D. <span class="answer">Yellow</span></button>
-                </ul>
-            </div>
-        </article>
+                    </ul>
+                </div>
+            </article>
 
-    </main>
+        </main>
 
 
-    <script src="trivia.js"></script>
-</body>
+        <script type="module" src="app.js"></script>
+    </body>
 
 </html>

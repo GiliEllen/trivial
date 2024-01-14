@@ -42,6 +42,10 @@ app.get("/logout", (_, res, next) => {
   next()
 });
 
+app.get("/api/question", (req, res) => {
+    res.send("this")
+})
+
 app.use(express.static("public"));
 
 async function init() {
