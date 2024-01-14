@@ -73,10 +73,17 @@ async function getRandomQuestions(
   category: string,
   count: number
 ): Promise<(typeof Question)[]> {
-  const randomQuestions = await Question.aggregate([
-    { $match: { difficulty, category } },
+  let pipeline: any[] = [
+    { $match: { difficulty } },
     { $sample: { size: count } },
-  ]);
+  ];
+
+  if (category !== "Any category") {
+    // Include category in the match condition only if it's not "Any category"
+    pipeline.unshift({ $match: { category } });
+  }
+
+  const randomQuestions = await Question.aggregate(pipeline);
 
   return randomQuestions;
 }

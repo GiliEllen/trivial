@@ -2,12 +2,12 @@ import { Document, Schema, model } from "mongoose";
 
 type Difficulty = "easy" | "medium" | "hard";
 
-type Category = "Any category" | "Sports" | "Animals";
+// type Category = "Any category" | "Sports" | "Animals";
 
 interface Question extends Document {
   type: string;
   difficulty: Difficulty;
-  category: Category;
+  category: string;
   question: string;
   correct_answer: string;
   incorrect_answers: string[];
@@ -23,7 +23,6 @@ const questionSchema = new Schema<Question>({
   },
   category: {
     type: String,
-    enum: ["Any category", "Sports", "Animals"],
     required: true,
     default: "Any category",
   },
@@ -40,7 +39,7 @@ export const Question = model<Question>(
 
 interface Trivia extends Document {
   difficulty: Difficulty;
-  category: Category;
+  category: string;
   questions: Question[];
   shareId: string;
 }
@@ -54,7 +53,6 @@ const triviaSchema = new Schema<Trivia>({
   },
   category: {
     type: String,
-    enum: ["Any category", "Sports", "Animals"],
     required: true,
     default: "Any category",
   },
