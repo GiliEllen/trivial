@@ -14,8 +14,26 @@
         <a class="__site-link centered-flex" href="login.html">Login</a>
         <a class="__site-link centered-flex" href="trivia.html">New trivia</a>
     </header>
-    
+
     <p class="flow">Welcome <span id="username"></span></p>
+
+    <form id="triviaForm">
+        <label for="difficulty">Difficulty:</label>
+        <select id="difficulty" name="difficulty">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+        </select>
+
+        <label for="topic">Topic:</label>
+        <select id="topic" name="topic">
+            <option value="Any category">Any Category</option>
+            <option value="Sports">Sports</option>
+            <option value="Animals">Animals</option>
+        </select>
+
+        <button id="newTriviaBtn" type="button">Get Trivia</button>
+    </form>
 
     <button class="flow" id="logoutBtn">Logout</button>
 
