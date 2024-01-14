@@ -28,6 +28,10 @@ body {
     flex-direction: column;
 }
 
+.--small-text {
+    font-size: small;
+}
+
 .flow {
     margin-block-start: 1.2rem;
 }
@@ -103,7 +107,8 @@ body {
 
 .register-form__register-link,
 .login-form__login-link,
-.back-to-login {
+.back-to-login,
+.__site-link {
     margin-inline-start: 1ch;
     text-decoration: none;
     color: map-get($selected-theme, accent);
@@ -122,4 +127,10 @@ body {
     font-weight: bolder;
     margin-inline-start: .5ch;
     font-style: italic;
+}
+
+.main-flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

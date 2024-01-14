@@ -8,15 +8,16 @@
     <link rel="stylesheet" href="styles.css" />
 </head>
 
-<body class="flow">
-    <header>
+<body class="main-flow">
+    <header class="flow">
         <h1>Trivial index</h1>
-        <a class="back-to-login" href="login.html">Login</a>
+        <a class="__site-link centered-flex" href="login.html">Login</a>
+        <a class="__site-link centered-flex" href="trivia.html">New trivia</a>
     </header>
     
-    <p>Welcome <span id="username"></span></p>
+    <p class="flow">Welcome <span id="username"></span></p>
 
-    <button id="logoutBtn">Logout</button>
+    <button class="flow" id="logoutBtn">Logout</button>
 
     <script type="module" src="app.js"></script>
 </body>
