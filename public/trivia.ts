@@ -25,11 +25,17 @@ async function fetchTrivia(triviaId: string) {
     }
 
     const trivia = await response.json();
-    console.log("Fetched trivia:", trivia);
     return trivia;
   } catch (error) {
     console.error("Error fetching trivia:", error);
     throw error;
+  }
+}
+
+function shuffleArray(array: any[]) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
   }
 }
 
@@ -52,17 +58,16 @@ async function app() {
 
     questionElement.innerHTML = trivia.questions[0].question;
 
-    trivia.questions[0].incorrect_answers.forEach((incorrectAnswer: any, index: any) => {
+    const allAnswers = [trivia.questions[0].correct_answer, ...trivia.questions[0].incorrect_answers];
+
+    shuffleArray(allAnswers);
+
+    allAnswers.forEach((answer: any, index: any) => {
       const button = document.createElement("button");
       button.id = `answer-${String.fromCharCode(97 + index)}-btn`;
-      button.innerHTML = `${String.fromCharCode(65 + index)}. <span class="answer">${incorrectAnswer}</span>`;
+      button.innerHTML = `${String.fromCharCode(65 + index)}. <span class="answer">${answer}</span>`;
       answersContainer.appendChild(button);
     });
-
-    const correctAnswerButton = document.createElement("button");
-    correctAnswerButton.id = "answer-d-btn";
-    correctAnswerButton.innerHTML = `D. <span class="answer">${trivia.questions[0].correct_answer}</span>`;
-    answersContainer.appendChild(correctAnswerButton);
 
   } catch (error) {
     console.error("Error fetching and updating trivia:", error);
