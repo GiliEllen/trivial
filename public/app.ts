@@ -1,5 +1,5 @@
 async function app() {
-  const user = await getJSON("/api/currentUser");
+  const user = await getJSON("/api/auth/currentUser");
 
   handleUser(user);
 }
@@ -10,13 +10,13 @@ document.getElementById("logoutBtn")?.addEventListener("click", async (e) => {
   e.preventDefault();
 
   try {
-    await fetch("/logout", {
+    await fetch("/api/auth/logout", {
       method: "GET",
       credentials: "same-origin",
     });
 
     new Promise<void>((resolve) => {
-      window.location.href = "/logout";
+      window.location.href = "/api/auth/logout";
       resolve();
     }).then(() => {
       window.location.reload();

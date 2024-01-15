@@ -15,7 +15,7 @@ export function togglePassword(formName: string): void {
 }
 
 export async function redirectIfLoggedIn() {
-  const user = await getJSON("/api/currentUser");
+  const user = await getJSON("/api/auth/currentUser");
   const currentWindowLocation = window.location.href;
 
   if (user && (currentWindowLocation.includes("login.html") || currentWindowLocation.includes("register.html"))) {

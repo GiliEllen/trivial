@@ -4,7 +4,7 @@ import express, { RequestHandler } from "express";
 import cookieParser from "cookie-parser";
 import { json } from "body-parser";
 import mongoose from "mongoose";
-import { User } from "./users.model";
+// import { User } from "./users.model";
 import { router as authRouter } from "./auth.router";
 import { router as triviaRouter } from "./trivia.router";
 
@@ -24,25 +24,25 @@ app.use(logRequests);
 app.use("/api/auth", authRouter);
 app.use("/api/trivia", triviaRouter);
 
-app.get("/api/currentUser", async (req, res, next) => {
-  try {
-    const user = await getUser(req.signedCookies[sessionCookieName]);
+// app.get("/api/auth/currentUser", async (req, res, next) => {
+//   try {
+//     const user = await getUser(req.signedCookies[sessionCookieName]);
 
-    res.status(200);
-    res.json(user);
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
-});
+//     res.status(200);
+//     res.json(user);
+//   } catch (error) {
+//     console.error(error);
+//     next(error);
+//   }
+// });
 
 const server = createServer(app);
 const port = process.env.PORT ?? 3000;
 
-app.get("/logout", (_, res) => {
-  res.cookie("userId", "", { expires: new Date(0) });
-  res.send("logged-out");
-});
+// app.get("/api/auth/logout", (_, res) => {
+//   res.cookie("userId", "", { expires: new Date(0) });
+//   res.send("logged-out");
+// });
 
 app.use(express.static("public"));
 
@@ -62,16 +62,16 @@ async function init() {
 
 init();
 
-async function getUser(userId?: string) {
-  if (!userId) {
-    return null;
-  }
+// async function getUser(userId?: string) {
+//   if (!userId) {
+//     return null;
+//   }
 
-  const user = await User.findById(userId);
+//   const user = await User.findById(userId);
 
-  if (!user) {
-    throw new Error();
-  }
+//   if (!user) {
+//     throw new Error();
+//   }
 
-  return user;
-}
+//   return user;
+// }
