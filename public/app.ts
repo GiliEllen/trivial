@@ -4,6 +4,15 @@ async function app() {
   handleUser(user);
 }
 
+// async function app() {
+//   const [user, trivia] = await Promise.all([
+//     getJSON("/api/auth/currentUser"),
+//     getJSON("/api/trivia/:triviaId"),
+//   ]);
+
+//   handleUser(user);
+// }
+
 app();
 
 document.getElementById("logoutBtn")?.addEventListener("click", async (e) => {
@@ -51,38 +60,13 @@ document
         throw new Error(`Failed to generate trivia: ${response.statusText}`);
       }
 
-      // Handle the generated trivia data as needed
       const trivia = await response.json();
-      console.log("Generated trivia:", trivia);
+
+      window.location.href = `/trivia.html#${trivia._id}`;
     } catch (error) {
       console.error("Error generating trivia:", error);
     }
   });
-
-//   try {
-// const difficultySelect = document.getElementById("difficulty") as HTMLSelectElement;
-// const topicSelect = document.getElementById("topic") as HTMLSelectElement;
-
-// const difficulty = difficultySelect.value;
-// const category = topicSelect.value;
-
-//     // Fetch new trivia based on user's selection
-//     const response = await fetch(`/api/trivia/${category}/${difficulty}`, {
-//       method: "GET",
-//       credentials: "same-origin",
-//     });
-
-//     if (!response.ok) {
-//       throw new Error(`Failed to fetch new trivia: ${response.statusText}`);
-//     }
-
-//     // Handle the fetched trivia data as needed
-//     console.log("Fetched new trivia successfully");
-
-//   } catch (error) {
-//     console.error("An error occurred when trying to fetch new trivia", error);
-//   }
-// });
 
 function handleUser(user: any) {
   if (!user) {
@@ -99,3 +83,23 @@ async function getJSON(path: string) {
 
   return await res.json();
 }
+
+// async function app() {
+//   const triviaId = window.location.hash.slice(1);
+//   const chapterDetails = await getChapterDetails(chapterId);
+
+//   renderChapterField("content");
+//   renderChapterField("title");
+
+//   function renderChapterField(field: keyof typeof chapterDetails) {
+//       const fieldElement = document.querySelectorAll(`.chapter-${field}`) as NodeListOf<HTMLElement>;
+
+//       if (!fieldElement) {
+//           throw new Error();
+//       }
+
+//       fieldElement.forEach((element) => element.innerText = chapterDetails[field].toString());
+//   }
+// };
+
+// app();
