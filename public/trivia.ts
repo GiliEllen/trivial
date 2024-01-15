@@ -109,7 +109,7 @@ async function app() {
         updateUI();
       } else {
         try {
-          const response = await fetch("/api/updateUserPoints", {
+          const response = await fetch("/api/users/updateUserPoints", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

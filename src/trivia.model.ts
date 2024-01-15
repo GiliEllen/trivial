@@ -2,12 +2,12 @@ import { Document, Schema, model } from "mongoose";
 
 type Difficulty = "easy" | "medium" | "hard";
 
-// type Category = "Any category" | "Sports" | "Animals";
+type Category = "Any category" | "Sports" | "Animals";
 
 interface Question extends Document {
   type: string;
   difficulty: Difficulty;
-  category: string;
+  category: Category;
   question: string;
   correct_answer: string;
   incorrect_answers: string[];

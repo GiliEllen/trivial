@@ -1,3 +1,5 @@
+import { getJSON } from "./funcs.js";
+
 async function app() {
   const user = await getJSON("/api/auth/currentUser");
 
@@ -59,7 +61,6 @@ document
 
 function handleUser(user: any) {
   if (!user) {
-    document.getElementById("username")!.textContent = "guest";
     return;
   }
 
@@ -67,8 +68,8 @@ function handleUser(user: any) {
   document.getElementById("username")!.textContent = user.username;
 }
 
-async function getJSON(path: string) {
-  const res = await fetch(path);
+// async function getJSON(path: string) {
+//   const res = await fetch(path);
 
-  return await res.json();
-}
+//   return await res.json();
+// }
