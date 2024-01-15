@@ -4,20 +4,9 @@ async function app() {
   handleUser(user);
 }
 
-// async function app() {
-//   const [user, trivia] = await Promise.all([
-//     getJSON("/api/auth/currentUser"),
-//     getJSON("/api/trivia/:triviaId"),
-//   ]);
-
-//   handleUser(user);
-// }
-
 app();
 
-document.getElementById("logoutBtn")?.addEventListener("click", async (e) => {
-  e.preventDefault();
-
+document.getElementById("logoutBtn")?.addEventListener("click", async () => {
   try {
     await fetch("/api/auth/logout", {
       method: "GET",
@@ -83,23 +72,3 @@ async function getJSON(path: string) {
 
   return await res.json();
 }
-
-// async function app() {
-//   const triviaId = window.location.hash.slice(1);
-//   const chapterDetails = await getChapterDetails(chapterId);
-
-//   renderChapterField("content");
-//   renderChapterField("title");
-
-//   function renderChapterField(field: keyof typeof chapterDetails) {
-//       const fieldElement = document.querySelectorAll(`.chapter-${field}`) as NodeListOf<HTMLElement>;
-
-//       if (!fieldElement) {
-//           throw new Error();
-//       }
-
-//       fieldElement.forEach((element) => element.innerText = chapterDetails[field].toString());
-//   }
-// };
-
-// app();
