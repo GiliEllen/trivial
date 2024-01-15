@@ -153,6 +153,7 @@ body {
     background-color: map-get($selected-theme, primary);
     color: map-get($selected-theme, secondary-text);
     cursor: pointer;
+    transition: all 200ms ease;
 
     @media (prefers-color-scheme: dark) {
         $selected-theme: map-get($themes, dark);
@@ -161,7 +162,7 @@ body {
     }
 
     &:hover {
-        background-color: rgba(0, 0, 0, 0.422);
+        background-color: map-get($selected-theme, secondary);
     }
 
     &:active {
