@@ -10,14 +10,14 @@
 
 <body class="main-flow">
     <header class="flow">
-        <h1>Trivial index</h1>
-        <a class="__site-link centered-flex" href="login.html">Login</a>
+        <h1>Trivial</h1>
     </header>
 
     <p class="flow">Welcome <span id="username"></span></p>
     <p>You have <span id="points"></span> points</p>
+    <button class="site-button" id="logoutBtn">Logout</button>
 
-    <form id="triviaForm">
+    <form class="flow centered-flex --columned" id="triviaForm">
         <label for="difficulty">Difficulty:</label>
         <select id="difficulty" name="difficulty">
             <option value="easy">Easy</option>
@@ -34,8 +34,6 @@
 
         <button id="newTriviaBtn" type="button">Start Trivia</button>
     </form>
-
-    <button class="flow" id="logoutBtn">Logout</button>
 
     <script type="module" src="app.js"></script>
 </body>

@@ -19,9 +19,9 @@ export async function redirect() {
     const user = await getJSON("/api/auth/currentUser");
     const currentWindowLocation = window.location.href;
 
-    if (!user && !isLoginPage(currentWindowLocation)) {
+    if (!user && !isEntryPage(currentWindowLocation)) {
       window.location.replace("/login.html");
-    } else if (user && isLoginPage(currentWindowLocation)) {
+    } else if (user && isEntryPage(currentWindowLocation)) {
       window.location.replace("/");
     }
   } catch (error) {
@@ -34,8 +34,19 @@ export async function getJSON(path: string) {
   return await res.json();
 }
 
-function isLoginPage(location: string): boolean {
+function isEntryPage(location: string): boolean {
   return (
     location.includes("login.html") || location.includes("register.html")
   );
+}
+
+
+export function handleUser(user: any) {
+  if (!user) {
+    return;
+  }
+
+  document.body.classList.add("logged-in");
+  document.getElementById("username")!.textContent = user.username;
+  document.getElementById("points")!.textContent = user.points;
 }

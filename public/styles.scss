@@ -10,6 +10,14 @@
     margin: 0;
 }
 
+input,
+button,
+textarea {
+    font-size: inherit;
+    font-family: inherit;
+    line-height: inherit;
+}
+
 html {
     font-size: calc(1rem + 0.5vw);
     color-scheme: light dark;
@@ -22,6 +30,11 @@ body {
 .centered-flex {
     display: flex;
     justify-content: center;
+}
+
+.columned-flex {
+    display: flex;
+    flex-direction: column;
 }
 
 .--columned {
@@ -133,4 +146,15 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.site-button {
+    background-color: map-get($selected-theme, primary);
+    color: map-get($selected-theme, secondary-text);
+
+    @media (prefers-color-scheme: dark) {
+        $selected-theme: map-get($themes, dark);
+        background-color: map-get($selected-theme, primary);
+        color: map-get($selected-theme, secondary-text);
+    }
 }

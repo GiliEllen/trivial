@@ -1,4 +1,4 @@
-import { getJSON, redirect } from "./funcs.js";
+import { getJSON, handleUser, redirect } from "./funcs.js";
 
 async function app() {
   const user = await getJSON("/api/auth/currentUser");
@@ -59,13 +59,3 @@ document
       console.error("Error generating trivia:", error);
     }
   });
-
-function handleUser(user: any) {
-  if (!user) {
-    return;
-  }
-
-  document.body.classList.add("logged-in");
-  document.getElementById("username")!.textContent = user.username;
-  document.getElementById("points")!.textContent = user.points;
-}
