@@ -1,50 +1,4 @@
-import { getJSON } from "./funcs.js";
-
-type Difficulty = "easy" | "medium" | "hard";
-
-type Question = {
-  type: string;
-  difficulty: Difficulty;
-  category: string;
-  question: string;
-  correct_answer: string;
-  incorrect_answers: string[];
-};
-
-export type Trivia = {
-  difficulty: Difficulty;
-  category: string;
-  questions: Question[];
-  shareId: string;
-};
-
-async function getCurrentUser() {
-  const user = await getJSON("/api/auth/currentUser");
-  return user;
-}
-
-async function fetchTrivia(triviaId: string) {
-  try {
-    const response = await fetch(`/api/trivia/${triviaId}`);
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch trivia: ${response.statusText}`);
-    }
-
-    const trivia = await response.json();
-    return trivia;
-  } catch (error) {
-    console.error("Error fetching trivia:", error);
-    throw error;
-  }
-}
-
-function shuffleArray(array: any[]) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-}
+import { getCurrentUser, fetchTrivia, shuffleArray } from "./funcs.js";
 
 async function app() {
   try {
@@ -98,7 +52,7 @@ async function app() {
       scoreElement!.innerHTML = `Score: ${score}`;
     }
 
-    async function handleAnswerClick(selectedAnswer: any) {
+    async function handleAnswerClick(selectedAnswer: string) {
       const correctAnswer =
         trivia.questions[currentQuestionIndex].correct_answer;
 
@@ -118,7 +72,7 @@ async function app() {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              userId: userId, 
+              userId: userId,
               points: score,
             }),
           });

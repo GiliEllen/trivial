@@ -35,11 +35,8 @@ export async function getJSON(path: string) {
 }
 
 function isEntryPage(location: string): boolean {
-  return (
-    location.includes("login.html") || location.includes("register.html")
-  );
+  return location.includes("login.html") || location.includes("register.html");
 }
-
 
 export function handleUser(user: any) {
   if (!user) {
@@ -49,4 +46,30 @@ export function handleUser(user: any) {
   document.body.classList.add("logged-in");
   document.getElementById("username")!.textContent = user.username;
   document.getElementById("points")!.textContent = user.points;
+}
+
+export function shuffleArray(array: string[]) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+export async function getCurrentUser() {
+  const user = await getJSON("/api/auth/currentUser");
+  return user;
+}
+export async function fetchTrivia(triviaId: string) {
+  try {
+    const response = await fetch(`/api/trivia/${triviaId}`);
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch trivia: ${response.statusText}`);
+    }
+
+    const trivia = await response.json();
+    return trivia;
+  } catch (error) {
+    console.error("Error fetching trivia:", error);
+    throw error;
+  }
 }
