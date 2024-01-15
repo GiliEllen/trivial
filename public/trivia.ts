@@ -42,48 +42,31 @@ async function app() {
     }
 
     const trivia = await fetchTrivia(triviaId);
+
+    const questionElement = document.getElementById("question");
+    const answersContainer = document.getElementById("answers-container");
+
+    if (!questionElement || !answersContainer) {
+      throw new Error("HTML elements not found");
+    }
+
+    questionElement.innerHTML = trivia.questions[0].question;
+
+    trivia.questions[0].incorrect_answers.forEach((incorrectAnswer: any, index: any) => {
+      const button = document.createElement("button");
+      button.id = `answer-${String.fromCharCode(97 + index)}-btn`;
+      button.innerHTML = `${String.fromCharCode(65 + index)}. <span class="answer">${incorrectAnswer}</span>`;
+      answersContainer.appendChild(button);
+    });
+
+    const correctAnswerButton = document.createElement("button");
+    correctAnswerButton.id = "answer-d-btn";
+    correctAnswerButton.innerHTML = `D. <span class="answer">${trivia.questions[0].correct_answer}</span>`;
+    answersContainer.appendChild(correctAnswerButton);
+
   } catch (error) {
-    console.error("Error fetching trivia:", error);
+    console.error("Error fetching and updating trivia:", error);
   }
 }
 
 app();
-
-// async function getTrivia(triviaId: string): Promise<Trivia> {
-//   const res = await fetch(`/api/trivia/${triviaId}`);
-
-//   return res.json();
-// }
-
-
-// const triviaId = getTrivia();
-
-// fetchTrivia(triviaId)
-//   .then((trivia) => {
-//     console.log(trivia);
-//   })
-//   .catch((error) => {
-//     console.error(error);
-//   });
-
-// export function renderChapters(chapters: any, amount: number) {
-//   const latestsChapters = document.getElementById("chapters-list");
-
-//   if (!latestsChapters) {
-//     throw new Error("Couldn't find chapters-list");
-//   }
-
-//   latestsChapters.innerHTML = chapters
-//     .slice(0, amount)
-//     .map(
-//       (chapter: any) => `<li class="chapter">
-//         <a class="chapterLi" href="/chapter-details.html#${chapter._id}">${
-//         chapter.title
-//       } (${chapter.author})</a>
-//       <time datetime="${chapter.timePosted}">${new Date(
-//         chapter.timePosted
-//       ).toLocaleString("en-gb")}</time>
-//       </li>`
-//     )
-//     .join("\n");
-// }
