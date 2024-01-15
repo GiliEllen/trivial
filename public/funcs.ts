@@ -14,17 +14,28 @@ export function togglePassword(formName: string): void {
   });
 }
 
-export async function redirectIfLoggedIn() {
-  const user = await getJSON("/api/auth/currentUser");
-  const currentWindowLocation = window.location.href;
+export async function redirect() {
+  try {
+    const user = await getJSON("/api/auth/currentUser");
+    const currentWindowLocation = window.location.href;
 
-  if (user && (currentWindowLocation.includes("login.html") || currentWindowLocation.includes("register.html"))) {
-    window.location.replace("/");
+    if (!user && !isLoginPage(currentWindowLocation)) {
+      window.location.replace("/login.html");
+    } else if (user && isLoginPage(currentWindowLocation)) {
+      window.location.replace("/");
+    }
+  } catch (error) {
+    console.error("Error during redirect:", error);
   }
 }
 
 export async function getJSON(path: string) {
   const res = await fetch(path);
-
   return await res.json();
+}
+
+function isLoginPage(location: string): boolean {
+  return (
+    location.includes("login.html") || location.includes("register.html")
+  );
 }

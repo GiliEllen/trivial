@@ -1,4 +1,4 @@
-import { redirectIfLoggedIn, togglePassword } from "./funcs.js";
+import { redirect, togglePassword } from "./funcs.js";
 
 document.forms.namedItem("register")?.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -31,4 +31,4 @@ document.forms.namedItem("register")?.addEventListener("submit", async (e) => {
 });
 
 togglePassword("register");
-redirectIfLoggedIn()
+redirect()

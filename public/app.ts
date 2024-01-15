@@ -1,9 +1,10 @@
-import { getJSON } from "./funcs.js";
+import { getJSON, redirect } from "./funcs.js";
 
 async function app() {
   const user = await getJSON("/api/auth/currentUser");
 
   handleUser(user);
+  redirect();
 }
 
 app();
@@ -66,10 +67,5 @@ function handleUser(user: any) {
 
   document.body.classList.add("logged-in");
   document.getElementById("username")!.textContent = user.username;
+  document.getElementById("points")!.textContent = user.points;
 }
-
-// async function getJSON(path: string) {
-//   const res = await fetch(path);
-
-//   return await res.json();
-// }
