@@ -4,7 +4,9 @@ import { Schema, model } from "mongoose"
 interface User {
     email: string,
     username: string,
-    password: string
+    password: string,
+    points: number,
+    challenges: string[]
 }
 
 const schema = new Schema<User>({
@@ -15,7 +17,9 @@ const schema = new Schema<User>({
         required: true,
         set: hashPassword,
         select: false
-    }
+    },
+    points: { type: Number, default: 0, required: true },
+    challenges: [{ type: Schema.Types.ObjectId, ref: 'TriviaModel' }]
 });
 
 function hashPassword(value: string) {
