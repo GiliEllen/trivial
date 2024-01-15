@@ -12,7 +12,8 @@
 
 input,
 button,
-textarea {
+textarea,
+select {
     font-size: inherit;
     font-family: inherit;
     line-height: inherit;
@@ -151,10 +152,23 @@ body {
 .site-button {
     background-color: map-get($selected-theme, primary);
     color: map-get($selected-theme, secondary-text);
+    cursor: pointer;
 
     @media (prefers-color-scheme: dark) {
         $selected-theme: map-get($themes, dark);
         background-color: map-get($selected-theme, primary);
         color: map-get($selected-theme, secondary-text);
     }
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.801);
+    }
+
+    &:active {
+        background-color: map-get($selected-theme, accent);
+    }
+}
+
+#game-title {
+    text-transform: capitalize;
 }

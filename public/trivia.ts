@@ -58,13 +58,16 @@ async function app() {
 
     const trivia = await fetchTrivia(triviaId);
 
+    const gameTitle = document.getElementById("game-title");
     const questionElement = document.getElementById("question");
     const answersContainer = document.getElementById("answers-container");
     const scoreElement = document.getElementById("score");
 
-    if (!questionElement || !answersContainer || !scoreElement) {
+    if (!gameTitle || !questionElement || !answersContainer || !scoreElement) {
       throw new Error("HTML elements not found");
     }
+
+    gameTitle.textContent = `${trivia.difficulty} ${trivia.category} Trivia`;
 
     let currentQuestionIndex = 0;
     let score = 0;
@@ -87,7 +90,7 @@ async function app() {
         button.id = `answer-${String.fromCharCode(97 + index)}-btn`;
         button.innerHTML = `${String.fromCharCode(
           65 + index
-        )}. <span class="answer">${answer}</span>`;
+        )}. <span class="answer centered-flex">${answer}</span>`;
         button.addEventListener("click", () => handleAnswerClick(answer));
         answersContainer!.appendChild(button);
       });
