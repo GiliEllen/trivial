@@ -1,3 +1,5 @@
+import { getJSON } from "./funcs.js";
+
 type Difficulty = "easy" | "medium" | "hard";
 
 type Question = {
@@ -15,6 +17,11 @@ export type Trivia = {
   questions: Question[];
   shareId: string;
 };
+
+async function getCurrentUser() {
+  const user = await getJSON("/api/auth/currentUser");
+  return user;
+}
 
 async function fetchTrivia(triviaId: string) {
   try {
@@ -47,6 +54,8 @@ async function app() {
       throw new Error("Trivia ID not found in the URL");
     }
 
+    const userId = await getCurrentUser();
+
     const trivia = await fetchTrivia(triviaId);
 
     const questionElement = document.getElementById("question");
@@ -61,12 +70,12 @@ async function app() {
     let score = 0;
 
     function updateUI() {
-      // Update question and answers
-      questionElement!.innerHTML = trivia.questions[currentQuestionIndex].question;
+      questionElement!.innerHTML =
+        trivia.questions[currentQuestionIndex].question;
 
       const allAnswers = [
         trivia.questions[currentQuestionIndex].correct_answer,
-        ...trivia.questions[currentQuestionIndex].incorrect_answers
+        ...trivia.questions[currentQuestionIndex].incorrect_answers,
       ];
 
       shuffleArray(allAnswers);
@@ -76,42 +85,61 @@ async function app() {
       allAnswers.forEach((answer, index) => {
         const button = document.createElement("button");
         button.id = `answer-${String.fromCharCode(97 + index)}-btn`;
-        button.innerHTML = `${String.fromCharCode(65 + index)}. <span class="answer">${answer}</span>`;
+        button.innerHTML = `${String.fromCharCode(
+          65 + index
+        )}. <span class="answer">${answer}</span>`;
         button.addEventListener("click", () => handleAnswerClick(answer));
         answersContainer!.appendChild(button);
       });
 
-      // Update score
       scoreElement!.innerHTML = `Score: ${score}`;
     }
 
-    function handleAnswerClick(selectedAnswer: any) {
-      const correctAnswer = trivia.questions[currentQuestionIndex].correct_answer;
+    async function handleAnswerClick(selectedAnswer: any) {
+      const correctAnswer =
+        trivia.questions[currentQuestionIndex].correct_answer;
 
       if (selectedAnswer === correctAnswer) {
-        // Increment score if the answer is correct
         score += 1;
       }
 
-      // Move to the next question or end the game
       currentQuestionIndex += 1;
 
       if (currentQuestionIndex < trivia.questions.length) {
-        updateUI(); // Move to the next question
+        updateUI();
       } else {
-        alert(`Game Over! Your final score is ${score}`);
-        // You can implement additional logic here, such as redirecting to another page.
+        try {
+          const response = await fetch("/api/updateUserPoints", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              userId: userId, 
+              points: score,
+            }),
+          });
+
+          if (!response.ok) {
+            throw new Error(
+              `Failed to update user points: ${response.statusText}`
+            );
+          }
+
+          alert(
+            `Game Over! Your final score is ${score}. Points updated successfully!`
+          );
+          window.location.replace("/");
+        } catch (error) {
+          console.error("Error updating user points:", error);
+        }
       }
     }
 
-    // Initial UI setup
     updateUI();
-
   } catch (error) {
     console.error("Error fetching and updating trivia:", error);
   }
 }
-
-app();
 
 app();

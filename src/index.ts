@@ -6,6 +6,7 @@ import { json } from "body-parser";
 import mongoose from "mongoose";
 import { router as authRouter } from "./auth.router";
 import { router as triviaRouter } from "./trivia.router";
+import { User } from "./users.model";
 
 export const sessionCookieName = "userId";
 
@@ -23,6 +24,23 @@ app.use(logRequests);
 
 app.use("/api/auth", authRouter);
 app.use("/api/trivia", triviaRouter);
+
+app.post("/api/updateUserPoints", async (req, res) => {
+  const { userId, points } = req.body;
+
+  try {
+    const user = await User.findByIdAndUpdate(userId, { $inc: { points } }, { new: true });
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.status(200).json({ message: "User points updated successfully", user });
+  } catch (error) {
+    console.error("Error updating user points:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 const server = createServer(app);
 const port = process.env.PORT ?? 3000;
