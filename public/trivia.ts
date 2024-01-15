@@ -51,27 +51,67 @@ async function app() {
 
     const questionElement = document.getElementById("question");
     const answersContainer = document.getElementById("answers-container");
+    const scoreElement = document.getElementById("score");
 
-    if (!questionElement || !answersContainer) {
+    if (!questionElement || !answersContainer || !scoreElement) {
       throw new Error("HTML elements not found");
     }
 
-    questionElement.innerHTML = trivia.questions[0].question;
+    let currentQuestionIndex = 0;
+    let score = 0;
 
-    const allAnswers = [trivia.questions[0].correct_answer, ...trivia.questions[0].incorrect_answers];
+    function updateUI() {
+      // Update question and answers
+      questionElement!.innerHTML = trivia.questions[currentQuestionIndex].question;
 
-    shuffleArray(allAnswers);
+      const allAnswers = [
+        trivia.questions[currentQuestionIndex].correct_answer,
+        ...trivia.questions[currentQuestionIndex].incorrect_answers
+      ];
 
-    allAnswers.forEach((answer: any, index: any) => {
-      const button = document.createElement("button");
-      button.id = `answer-${String.fromCharCode(97 + index)}-btn`;
-      button.innerHTML = `${String.fromCharCode(65 + index)}. <span class="answer">${answer}</span>`;
-      answersContainer.appendChild(button);
-    });
+      shuffleArray(allAnswers);
+
+      answersContainer!.innerHTML = "";
+
+      allAnswers.forEach((answer, index) => {
+        const button = document.createElement("button");
+        button.id = `answer-${String.fromCharCode(97 + index)}-btn`;
+        button.innerHTML = `${String.fromCharCode(65 + index)}. <span class="answer">${answer}</span>`;
+        button.addEventListener("click", () => handleAnswerClick(answer));
+        answersContainer!.appendChild(button);
+      });
+
+      // Update score
+      scoreElement!.innerHTML = `Score: ${score}`;
+    }
+
+    function handleAnswerClick(selectedAnswer: any) {
+      const correctAnswer = trivia.questions[currentQuestionIndex].correct_answer;
+
+      if (selectedAnswer === correctAnswer) {
+        // Increment score if the answer is correct
+        score += 1;
+      }
+
+      // Move to the next question or end the game
+      currentQuestionIndex += 1;
+
+      if (currentQuestionIndex < trivia.questions.length) {
+        updateUI(); // Move to the next question
+      } else {
+        alert(`Game Over! Your final score is ${score}`);
+        // You can implement additional logic here, such as redirecting to another page.
+      }
+    }
+
+    // Initial UI setup
+    updateUI();
 
   } catch (error) {
     console.error("Error fetching and updating trivia:", error);
   }
 }
+
+app();
 
 app();
