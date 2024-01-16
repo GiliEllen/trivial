@@ -7,7 +7,9 @@
     "dev": "run-p dev:*",
     "dev:server": "ts-node-dev --transpile-only src/index.ts",
     "dev:sass": "sass public --watch",
-    "dev:ts": "tsc --watch --project public"
+    "dev:ts": "tsc --watch --project public",
+    "build": "tsc",
+    "start": "node ./src/dist/index.js"
   },
   "keywords": [],
   "author": "",

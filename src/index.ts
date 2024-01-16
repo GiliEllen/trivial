@@ -28,6 +28,7 @@ async function init() {
   if (!process.env.MONGO_CONNECTION_STRING) {
     throw new Error("Must provide connection string for mongodb");
   }
+  console.log("test")
 
   await mongoose.connect(process.env.MONGO_CONNECTION_STRING, {
     dbName: "trivial",
