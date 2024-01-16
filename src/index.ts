@@ -1,8 +1,8 @@
-import "dotenv/config";
-import { createServer } from "http";
-import express from "express";
-import cookieParser from "cookie-parser";
 import { json } from "body-parser";
+import cookieParser from "cookie-parser";
+import "dotenv/config";
+import express from "express";
+import { createServer } from "http";
 import mongoose from "mongoose";
 import { router as authRouter } from "./auth.router";
 import { router as triviaRouter } from "./trivia.router";
